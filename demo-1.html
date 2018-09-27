@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://dom-murray.github.io/filters-v1/jquery.js"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+	<script src="https://dom-murray.github.io/filters-v1/jquery.sumoselect.js"></script>
+    <link href="https://dom-murray.github.io/filters-v1/sumoselect.css" rel="stylesheet" />
+    <style>
+		.SumoSelect, .selectbox {
+		    width: 200px;
+		    position: relative;
+		    display: block;
+		}
+    	.expand {
+		    position: absolute;
+		    top: 8px;
+		    right: 1px;
+		    color: #222;
+		    width: 44px;
+		    height: 44px;
+		    text-align: center;
+		    z-index: 999999999;
+	    }
+	    .expand:hover {
+		    cursor:pointer;
+	    }
+    
+
+    	.SumoSelect > .CaptionCont > span.placeholder {
+			color: #222;
+			font-style: italic;
+			font-weight: normal;
+			font-size: 16px;
+		}
+		
+
+		#filters p {
+		    font-weight: normal;
+		    font-size: 16px;
+		    padding-bottom: 10px;
+		}
+		.SumoSelect > .optWrapper.multiple > .options li.opt.selected span i, .SumoSelect .select-all.selected > span i, .SumoSelect .select-all.partial > span i {
+	   		background-color: #006ED5
+		}
+
+		#filters {
+			padding-top: 20px;
+			float: left;
+		}
+		.top-nav {
+			float: right;
+			position: relative;
+			height: 100px;
+		}
+
+		.top-nav img {
+			float: right;
+			cursor: pointer;
+		}
+
+		.share {
+			position: absolute;
+			right: 0;
+			top: 70px;
+			z-index: 100;
+		}
+    </style>
+
+    <script type="text/javascript">
+
+    	function toggleSharing() {
+    		var ele = document.querySelector('.share');
+    		ele.style.display = ele.style.display === "none" ? "" : "none";
+    	}
+
+    	$(document).ready(function () {
+    		window.test = $('.testsel').SumoSelect({
+            	placeholder: 'Everything: ',
+			    csvDispCount: 100,
+			    captionFormat:'{0} Selected', 
+			    captionFormatAllSelected:'{0} all selected!',
+			    floatWidth: 400,
+			    forceCustomRendering: true,
+			    nativeOnDevice: ['a', 'b', 'c', 'd', 'iPod', 'Opera Mini', 'IEMobile', 'Silk'],
+			    outputAsCSV: false,
+			    csvSepChar: ',',
+			    okCancelInMulti: false,
+			    isClickAwayOk: true,
+			    triggerChangeCombined: false,
+			    selectAll: false,
+			    search: false,
+			    searchText: 'Search...',
+			    noMatch: 'No matches for "{0}"',
+			    prefix: '',
+			    locale: ['OK', 'Clear', 'Select All'],
+			    up: false,
+			    showTitle: true
+            });
+            
+            $('.expand-1').click(function(){
+			   window.setTimeout(function(){
+			        $('.testsel-1')[0].sumo.showOpts();
+		       }, 100);
+			});
+			
+            $('.SlectBox').on('sumo:opened', function(o) {
+              console.log("dropdown opened", o)
+            });
+    	
+    	
+			$(".selectbox").change(function() {
+				
+				if ($(".selectbox li.opt.selected").length > 0) {
+					$("#display .option-1").hide();
+					$("#display .option-2").hide();
+					$("#display .option-3").hide();
+					$("#display .option-4").hide();
+					$("#display .option-5").hide();
+					$("#side-info").hide();
+				}
+				else {
+					$("#display .option-1").show();
+					$("#display .option-2").show();
+					$("#display .option-3").show();
+					$("#display .option-4").show();
+					$("#display .option-5").show();
+					$("#side-info").show();
+				}
+				
+		        
+		
+				if ($('.selectbox li.opt.option-1').hasClass('selected')) {
+					$("#display .option-1").show();
+				}
+				if ($('.selectbox li.opt.option-2').hasClass('selected')) {
+					$("#display .option-2").show();
+				}
+				if ($('.selectbox li.opt.option-3').hasClass('selected')) {
+					$("#display .option-3").show();
+				}
+				if ($('.selectbox li.opt.option-4').hasClass('selected')) {
+					$("#display .option-4").show();
+				}
+				if ($('.selectbox li.opt.option-5').hasClass('selected')) {
+					$("#display .option-5").show();
+					$("#side-info").show();
+				}
+			  });
+		   
+		   document.getElementById('sharing-btn').addEventListener("click", () => {
+		   	toggleSharing();
+		   });
+
+		   document.querySelector('.share').addEventListener("click", () => {
+		   	toggleSharing();
+		   });
+    		
+		});
+    </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style type="text/css">
+        body{font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color:#444;font-size:13px; padding: 40px;}
+        p,div,ul,li{padding:0px; margin:0px;}
+    </style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-9">
+			<div id="filters">
+				<div class="selectbox">	
+					<div class="expand expand-1"><i class="material-icons">expand_more</i></div>
+					<select multiple="multiple" placeholder="Everything"  class="testsel testsel-1">
+						<option class="option-1 selected">Failed Responses</option>
+						<option class="option-2 selected">Actions</option>
+						<option class="option-3 selected">Scores</option>
+						<!--<option class="option-4 selected">Information Fields</option>-->
+						<option class="option-5 selected">Sections & Categories</option>
+					</select>
+				</div>
+			</div>
+			<div class="top-nav"><img id="sharing-btn" src="./assets/top-buttons.png"><div class="share" style="display:none"><img src="./assets/share.png" /></div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<!-SIDE BAR WITH FILTERING OPTIONS-->
+		<div class="col-3">
+			<img id="side-info" width="255" padding-top="60" src="./assets/side-info.png">
+		</div>
+		
+		<!-CONTENT AREA-->
+		<div class="col-9" >
+			<div id="display">
+			 <img src="./assets/overview.png">
+				<div class="option-1">Failed Responses
+					<img src="./assets/fr.png">
+				</div>
+				<div class="option-2">Actions
+					<img src="./assets/actions.png">
+				</div>
+	
+				<div class="option-3">Scores
+					<!--<div class="option-4">Information Fields</div>-->
+				<div class="option-5">Sections & Categories
+					<img src="./assets/audits.png"></div>
+				</div>
+			</div>
+	</div>
+</div>
+</body>
+</html>
